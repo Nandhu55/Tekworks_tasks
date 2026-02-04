@@ -142,13 +142,26 @@ if st.session_state.admin:
         st.rerun()
 
 
-if mode == "User Portal":
+def main():
+    st.sidebar.title("📂 Menu")
 
-    submit_complaint()
-    st.divider()
-    search_complaint()
+    mode = st.sidebar.radio(
+        "Select Mode",
+        ["User Portal", "Admin Portal"]
+    )
 
-else:
+    if st.session_state.admin:
+        if st.sidebar.button("🚪 Logout"):
+            st.session_state.admin = False
+            st.rerun()
+
+    if mode == "User Portal":
+
+        submit_complaint()
+        st.divider()
+        search_complaint()
+
+    else:
 
         if not st.session_state.admin:
             admin_login()
