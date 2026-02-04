@@ -10,6 +10,8 @@ A multi-module web application built with Streamlit and Supabase that combines f
 
 📊 Student Performance & Analytics Dashboard : https://student-performance-management-system8.streamlit.app/
 
+complete project : https://complete-task-project.streamlit.app/
+
 This project demonstrates full CRUD operations, database design, analytics, charts, session handling, and modular app architecture.
 
 🧩 Modules Included
