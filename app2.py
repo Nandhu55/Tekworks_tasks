@@ -170,7 +170,13 @@ def dashboard():
         pass_fail()
 
 
-if not st.session_state.logged:
-    login()
-else:
-    dashboard()
+def main():
+    if not st.session_state.logged:
+        login()
+    else:
+        dashboard()
+
+
+if __name__ == "__main__":
+    main()
+
