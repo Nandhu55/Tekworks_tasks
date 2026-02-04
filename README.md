@@ -1,43 +1,144 @@
-# 🎓 Student Management Systems Suite
+🚀 Unified Management Portal — Streamlit + Supabase
 
-A collection of three Streamlit-based web applications for managing student data, attendance, marks, and complaints. All applications use **Supabase** as the backend database.
----
-working site links:
+A multi-module web application built with Streamlit and Supabase that combines four real-world systems into one unified portal:
 
-Student Performance Management System : https://student-performance-management-system8.streamlit.app/
-Student Attendance & Marks Portal : https://student-attendance-marks-portl.streamlit.app/
- Online Complaint Management System : https://online-complaint-management-system.streamlit.app/
+🎓 Student Attendance & Marks Portal : https://student-attendance-marks-portl.streamlit.app/
 
-## 📋 Table of Contents
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Setup Instructions](#setup-instructions)
-- [Application 1: Student Performance Management](#1--student-performance-management-system)
-- [Application 2: Attendance & Marks Portal](#2--attendance--marks-portal)
-- [Application 3: Complaint System](#3--complaint-system)
-- [Database Schema](#database-schema)
-- [Environment Variables](#environment-variables)
-- [Running the Applications](#running-the-applications)
+📣 Online Complaint Management System : https://online-complaint-management-system.streamlit.app/
 
----
+🧾 Inventory & Billing Management : https://inventory-billing-management-app.streamlit.app/
 
-## 🎯 Overview
+📊 Student Performance & Analytics Dashboard : https://student-performance-management-system8.streamlit.app/
 
-| Application | Purpose | Key Features |
-|-------------|---------|--------------|
+This project demonstrates full CRUD operations, database design, analytics, charts, session handling, and modular app architecture.
 
-| **Student Performance** | Comprehensive student records with analytics | CRUD operations, pass/fail tracking, charts, analytics |
+🧩 Modules Included
+🎓 Task 1 — Student Attendance & Marks Portal
 
-| **Attendance & Marks** | Daily attendance and subject marks management | Login system, attendance tracking, pass/fail per subject |
+Manage student records, attendance, and subject marks.
 
-| **Complaint System** | User complaint submission and admin management | Email validation, status tracking, admin panel |
+Features
 
----
+Add students (Roll No, Name, Class)
 
-## ⚙️ Prerequisites
+Mark daily attendance (Present / Absent)
 
-- Python 3.8+
-- Streamlit
-- Supabase account (free tier works)
-- Required packages:
+Add subject-wise marks
 
+View attendance history
+
+Calculate attendance %
+
+Show pass/fail status
+
+Subject average marks
+
+Analytics + charts
+
+Streamlit Concepts Used
+
+st.form
+
+st.selectbox
+
+st.radio
+
+st.dataframe
+
+st.metric
+
+st.session_state
+
+📣 Task 2 — Online Complaint Management System
+
+Complaint registration and admin tracking system.
+
+Features
+
+Submit complaint (Name, Email, Category, Description)
+
+Auto complaint ID
+
+Store in database
+
+Admin panel:
+
+View complaints
+
+Update status (Open / In Progress / Closed)
+
+Search by complaint ID
+
+Expandable complaint view
+
+Streamlit Concepts Used
+
+st.text_area
+
+st.selectbox
+
+st.expander
+
+st.sidebar
+
+st.button
+
+Input validation
+
+🧾 Task 3 — Inventory & Billing Management
+
+Shop inventory and billing system.
+
+Features
+
+Add products (Name, Price, Stock)
+
+Update stock after purchase
+
+Cart system using session state
+
+Generate bill
+
+Store bills + bill items
+
+Daily sales summary
+
+Download bill report
+
+Streamlit Concepts Used
+
+st.number_input
+
+st.columns
+
+st.metric
+
+st.download_button
+
+st.session_state (cart)
+
+📊 Task 4 — Student Performance Analytics
+
+Advanced analytics on student marks.
+
+Features
+
+Average marks calculation
+
+Pass percentage
+
+Top scorer detection
+
+Subject-wise averages
+
+Bar charts
+
+Pie charts (pass/fail ratio)
+
+Visualization
+
+Streamlit charts
+
+Matplotlib pie charts
+
+Aggregation queries
