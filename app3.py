@@ -150,7 +150,11 @@ if mode == "User Portal":
 
 else:
 
-    if not st.session_state.admin:
-        admin_login()
-    else:
-        admin_view()
+        if not st.session_state.admin:
+            admin_login()
+        else:
+            admin_view()
+
+
+if __name__ == "__main__":
+    main()
