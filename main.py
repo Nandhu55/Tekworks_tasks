@@ -52,11 +52,11 @@ def main():
     if module == "🎓 Student Management":
         app1.main()
 
-    elif module == "📅 Attendance & Marks":
-        app2.main()
-
     elif module == "📣 Complaints":
         app3.main()
+
+    elif module == "📅 Attendance & Marks":
+        app2.main()
 
     elif module == "🧾 Inventory & Billing":
         app4.main()
