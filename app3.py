@@ -10,9 +10,6 @@ supabase = create_client(
 )
 
 
-if "admin" not in st.session_state:
-    st.session_state.admin = False
-
 def valid_email(email):
     return re.match(r"^[^@]+@[^@]+\.[^@]+$", email)
 
@@ -23,10 +20,12 @@ def submit_complaint():
     with st.form("complaint_form"):
         name = st.text_input("Name")
         email = st.text_input("Email")
+
         category = st.selectbox(
             "Category",
             ["Technical", "Billing", "Service", "Other"]
         )
+
         desc = st.text_area("Complaint Description")
 
         submit = st.form_submit_button("Submit Complaint")
@@ -52,25 +51,27 @@ def submit_complaint():
                 st.success("✅ Complaint submitted")
                 st.info(f"🆔 Complaint ID: {res.data[0]['id']}")
 
+
 def search_complaint():
 
-    st.subheader("🔎 Search Complaint")
+    st.title("🔎 Search Complaint")
 
     cid = st.text_input("Complaint ID")
 
-    if st.button("Search"):
+    if st.button("Search Complaint"):
+
         res = supabase.table("complaints") \
             .select("*") \
             .eq("id", cid) \
             .execute()
 
         if not res.data:
-            st.warning("Not found")
+            st.warning("Complaint not found")
             return
 
         c = res.data[0]
 
-        with st.expander("Complaint Details", expanded=True):
+        with st.expander("📄 Complaint Details", expanded=True):
             st.write("**Name:**", c["name"])
             st.write("**Email:**", c["email"])
             st.write("**Category:**", c["category"])
@@ -79,14 +80,18 @@ def search_complaint():
             st.write("**Created:**", c["created_at"])
 
 
-def admin_view():
+def manage_complaints():
 
-    st.title("🛠 Admin Complaint Panel")
+    st.title("🛠 Manage Complaints")
 
     res = supabase.table("complaints") \
         .select("*") \
         .order("created_at", desc=True) \
         .execute()
+
+    if not res.data:
+        st.info("No complaints found")
+        return
 
     for c in res.data:
 
@@ -95,79 +100,46 @@ def admin_view():
             st.write("Name:", c["name"])
             st.write("Email:", c["email"])
             st.write("Description:", c["description"])
-            st.write("Status:", c["status"])
+            st.write("Current Status:", c["status"])
 
             new_status = st.selectbox(
                 "Update Status",
                 ["Open", "In Progress", "Closed"],
+                index=["Open","In Progress","Closed"].index(c["status"]),
                 key=c["id"]
             )
 
-            if st.button("Update", key="btn"+c["id"]):
+            if st.button("Update Status", key="btn"+c["id"]):
+
                 supabase.table("complaints") \
                     .update({"status": new_status}) \
                     .eq("id", c["id"]) \
                     .execute()
 
-                st.success("Updated")
+                st.success("✅ Status Updated")
                 st.rerun()
 
-
-def admin_login():
-
-    st.title("🔐 Admin Login")
-
-    user = st.text_input("Admin User")
-    pwd = st.text_input("Password", type="password")
-
-    if st.button("Login"):
-
-        if user == "admin" and pwd == "1234":
-            st.session_state.admin = True
-            st.rerun()
-        else:
-            st.error("Wrong credentials")
-
-
-st.sidebar.title("📂 Menu")
-
-mode = st.sidebar.radio(
-    "Select Mode",
-    ["User Portal", "Admin Portal"]
-)
-
-if st.session_state.admin:
-    if st.sidebar.button("🚪 Logout"):
-        st.session_state.admin = False
-        st.rerun()
-
-
 def main():
-    st.sidebar.title("📂 Menu")
 
-    mode = st.sidebar.radio(
-        "Select Mode",
-        ["User Portal", "Admin Portal"]
+    st.sidebar.title("📂 Complaint System")
+
+    page = st.sidebar.radio(
+        "Navigate",
+        [
+            "📣 Submit Complaint",
+            "🔎 Search Complaint",
+            "🛠 Manage Complaints"
+        ]
     )
 
-    if st.session_state.admin:
-        if st.sidebar.button("🚪 Logout"):
-            st.session_state.admin = False
-            st.rerun()
-
-    if mode == "User Portal":
-
+    if page == "📣 Submit Complaint":
         submit_complaint()
-        st.divider()
+
+    elif page == "🔎 Search Complaint":
         search_complaint()
 
-    else:
-
-        if not st.session_state.admin:
-            admin_login()
-        else:
-            admin_view()
-
+    elif page == "🛠 Manage Complaints":
+        manage_complaints()
 
 if __name__ == "__main__":
     main()
